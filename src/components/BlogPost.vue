@@ -4,7 +4,13 @@
     <div class="card-body d-flex justify-content-between align-items-center">
       <div>
         <p class="card-title">{{ blogPost.title }}</p>
+        <router-link
+          :to="{ name: 'Profile', params: { profileId: blogPost.creatorId } }"
+        >
+          <img :src="blogPost.creator.picture" />
+        </router-link>
         <p>{{ blogPost.creator.name }}</p>
+        <p>{{ blogPost.body.substring(0, 50) + "..." }}</p>
       </div>
     </div>
   </div>
@@ -14,22 +20,16 @@
 import { AppState } from "../AppState";
 import { computed, ref, onMounted } from "vue";
 import { BlogPost } from "../models/BlogPost";
+import { RouterLink } from "vue-router";
 
 export default {
   props: {
-    blogPost: { type: BlogPost, required: true }, //why required ask mick
+    blogPost: { type: BlogPost, required: true },
   },
   setup() {
-    function snippet(blogPost, maxLength) {
-      if (blogPost.body.length > maxLength) {
-        return blogPost.body.substring(0, maxLength) + "...";
-      }
-    }
-
-    return {
-        snippet()
-    };
+    return {};
   },
+  components: { RouterLink },
 };
 </script>
 
